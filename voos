@@ -2,15 +2,14 @@ import random
 import time
 from datetime import datetime, timedelta
 
-# Função para gerar voos simulados
+
 def gerar_voos():
     destinos = ["Paris", "Estocolmo", "Roma", "Seul", "Oslo"]
     voos = []
     
-    for i in range(5):  # Simulando 5 voos
-        partida = datetime.now() + timedelta(minutes=random.randint(1, 60))  # Hora de partida em até 60 minutos
-        chegada = partida + timedelta(hours=random.randint(1, 3))  # Hora de chegada em 1 a 3 horas
-        voo = {
+    for i in range(5):  
+        partida = datetime.now() + timedelta(minutes=random.randint(1, 60)) 
+        chegada = partida + timedelta(hours=random.randint(1, 3))  
             "destino": destinos[i],
             "partida": partida,
             "chegada": chegada
@@ -19,30 +18,30 @@ def gerar_voos():
     
     return voos
 
-# Função para verificar se é hora de emitir o alerta
+
 def verificar_voo(voo):
     agora = datetime.now()
     
-    # Alerta 15 minutos antes da partida ou chegada
+    
     if voo["partida"] - timedelta(minutes=15) <= agora <= voo["partida"]:
         print(f"ALERTA: O voo para {voo['destino']} está prestes a partir às {voo['partida'].strftime('%H:%M')}")
     elif voo["chegada"] - timedelta(minutes=15) <= agora <= voo["chegada"]:
         print(f"ALERTA: O voo de {voo['destino']} está prestes a chegar às {voo['chegada'].strftime('%H:%M')}")
 
-# Função para monitorar os voos de forma infinita
+
 def monitorar_voos():
     while True:
-        voos = gerar_voos()  # Gerar voos simulados
+        voos = gerar_voos()  
         for voo in voos:
-            verificar_voo(voo)  # Verificar se algum voo precisa de alerta
+            verificar_voo(voo)  
         
-        # Aguardar 60 segundos antes de gerar novos voos e verificar novamente
+        
         time.sleep(60)
 
-# Função principal
+
 def main():
     print("Iniciando monitoramento contínuo dos voos...")
-    monitorar_voos()  # Iniciar o monitoramento infinito dos voos
+    monitorar_voos()  
 
 if __name__ == "__main__":
     main()
